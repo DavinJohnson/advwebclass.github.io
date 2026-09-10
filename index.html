@@ -10,6 +10,11 @@
       margin: 40px auto;
       padding: 0 20px;
       line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #ffffff;
+    }
+    a {
+      color: #0b4f9c;
     }
     header {
       border-bottom: 2px solid #333;
@@ -19,12 +24,19 @@
     nav a {
       margin-right: 15px;
     }
+    .disclaimer {
+      font-style: italic;
+      color: #444444;
+      border-left: 3px solid #999;
+      padding-left: 12px;
+      margin: 20px 0;
+    }
     footer {
       margin-top: 40px;
       border-top: 1px solid #ccc;
       padding-top: 10px;
       font-size: 14px;
-      color: #555;
+      color: #444444;
     }
   </style>
 </head>
@@ -32,28 +44,39 @@
 
   <header>
     <h1>Davin Johnson</h1>
-    <p>IT 4403 - Adv Web and Mobile App | Fall 2026</p>
+    <p>Kennesaw State University &ndash; College of Computing and Software Engineering (CCSE)</p>
   </header>
 
   <nav>
-    <a href="#coursework">Coursework</a>
-    <a href="#about">About</a>
+    <a href="index.html">Home</a>
+    <a href="labs.html">Labs</a>
+    <a href="exercises.html">Exercises</a>
+    <a href="project.html">Project</a>
   </nav>
+
+  <section id="overview">
+    <h2>About This Site</h2>
+    <p>This site is where I publish my exercises, labs, and project work for <strong>IT 4403 &ndash; Advanced Web and Mobile Applications</strong>.</p>
+  </section>
+
+  <p class="disclaimer">
+    Disclaimer: This is a student website created for course projects in IT 4403.
+    It is not an official publication of the university.
+  </p>
 
   <section id="coursework">
     <h2>Coursework</h2>
     <ul>
-      <li><a href="lab1.html">Lab 1: Web Hosting Setup</a></li>
+      <li><a href="labs.html">Labs</a> &ndash; see Lab 1: Web Hosting Setup</li>
+      <li><a href="exercises.html">Exercises</a></li>
+      <li><a href="project.html">Project</a></li>
     </ul>
   </section>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>This site is where I publish my labs, exercises, and project work for IT 4403.</p>
-  </section>
-
   <footer>
-    <p>Hosted on GitHub Pages</p>
+    <p>
+      <a href="https://ccse.kennesaw.edu/it/">CCSE Department of Information Technology</a>
+    </p>
   </footer>
 
 </body>
