@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex1 - CSS Manipulation (jQuery)</title>
+  <link rel="stylesheet" href="../lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>CSS Manipulation</h1>
+  <p>My jQuery rewrite of the random style-changer example.</p>
+
+  <input type="button" id="change1" value="Change Style"><br>or<br>
+  <input type="button" id="change2" value="Change Color">
+  <input type="button" id="change3" value="Change Size">
+  <input type="button" id="change4" value="Change Border">
+  <h1 id="result" style="border:solid; text-align:center">Welcome</h1>
+
+  <script>
+    function getRandomColorCode() {
+      var red = Math.floor(Math.random() * 255);
+      var green = Math.floor(Math.random() * 255);
+      var blue = Math.floor(Math.random() * 255);
+      return "rgb(" + red + "," + green + "," + blue + ")";
+    }
+
+    function changeColor() {
+      $("#result").css("background-color", getRandomColorCode());
+    }
+
+    function changeSize() {
+      var h = Math.floor(Math.random() * 100) + 50;
+      var w = Math.floor(Math.random() * 200) + 200;
+      $("#result").css({ height: h + "px", width: w + "px" });
+    }
+
+    function changeBorder() {
+      var w = Math.floor(Math.random() * 20) + 5;
+      $("#result").css({
+        borderWidth: w + "px",
+        borderColor: getRandomColorCode()
+      });
+    }
+
+    function changeStyle() {
+      changeColor();
+      changeSize();
+      changeBorder();
+    }
+
+    $(document).ready(function () {
+      $("#change1").click(changeStyle);
+      $("#change2").click(changeColor);
+      $("#change3").click(changeSize);
+      $("#change4").click(changeBorder);
+    });
+  </script>
+
+  <div class="notes">
+    <strong>Comparison notes:</strong> plain JS sets each style property one at a time through
+    <code>element.style.propertyName</code>. jQuery's <code>.css()</code> accepts either a single
+    property/value pair or an object of several properties at once (used here in
+    <code>changeSize()</code> and <code>changeBorder()</code>), which shortens multi-property
+    updates.
+  </div>
+  <a class="back" href="../index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

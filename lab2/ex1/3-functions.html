@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex1 - Functions (jQuery)</title>
+  <link rel="stylesheet" href="../lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    function createList(level, type) {
+      var html = "<" + type + ">";
+      for (var i = 1; i <= level; i++) {
+        html += "<li>" + i + "</li>";
+      }
+      html += "</" + type + ">";
+      $("#list1").html(html);
+    }
+
+    function createList2(level, type) {
+      var html = "<" + type + ">";
+      for (var i = 1; i <= level; i++) {
+        html += "<li>" + i + "</li>";
+      }
+      html += "</" + type + ">";
+      $("#list2").html(html);
+    }
+
+    $(document).ready(function () {
+      createList(5, "ul");
+      createList2(10, "ol");
+    });
+  </script>
+</head>
+<body>
+  <h1>Functions</h1>
+  <p>This example shows void-type functions, rewritten to update the page with jQuery
+     instead of <code>document.write()</code>.</p>
+  <div class="card" id="list1"></div>
+  <div class="card" id="list2"></div>
+
+  <div class="notes">
+    <strong>Comparison notes:</strong> the function signatures and loop logic are unchanged from
+    the plain-JS version - only the output line changed, from
+    <code>document.write(...)</code> to <code>$("#list").html(...)</code>, which targets a
+    specific element instead of writing to wherever the script happens to execute.
+  </div>
+  <a class="back" href="../index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

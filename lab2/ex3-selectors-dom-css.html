@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex3 - jQuery Selectors, DOM, and CSS</title>
+  <link rel="stylesheet" href="lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    .highlight { background-color: #fff3b0; }
+  </style>
+</head>
+<body>
+  <h1 id="mainHeading">Exercise 3: Selectors, DOM, and CSS</h1>
+
+  <p id="intro">This paragraph has an ID and will be targeted directly.</p>
+  <p class="note">This is note paragraph one (class="note").</p>
+  <p class="note">This is note paragraph two (class="note").</p>
+
+  <ul id="fruitList">
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Cherry</li>
+  </ul>
+
+  <div class="card">
+    <h3>Selectors</h3>
+    <input type="button" id="byId" value="Select by ID (#intro)">
+    <input type="button" id="byClass" value="Select by class (.note)">
+    <input type="button" id="byTag" value="Select by tag (li)">
+    <div id="selectorOutput" class="card"></div>
+  </div>
+
+  <div class="card">
+    <h3>DOM Manipulation</h3>
+    <input type="button" id="readText" value="Read text of #intro">
+    <input type="button" id="readHtml" value="Read HTML of #fruitList">
+    <input type="button" id="changeText" value="Change #intro text">
+    <input type="button" id="readAttr" value="Read href of #ksuLink">
+    <input type="button" id="changeAttr" value="Change href of #ksuLink">
+    <div id="domOutput" class="card"></div>
+    <p><a id="ksuLink" href="https://www.kennesaw.edu/">Kennesaw State University</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Visibility</h3>
+    <input type="button" id="hideBtn" value="Hide #fruitList">
+    <input type="button" id="showBtn" value="Show #fruitList">
+    <input type="button" id="toggleBtn" value="Toggle #fruitList">
+  </div>
+
+  <div class="card">
+    <h3>CSS Manipulation</h3>
+    <input type="button" id="cssBg" value="Background color">
+    <input type="button" id="cssColor" value="Text color">
+    <input type="button" id="cssFont" value="Font size">
+    <input type="button" id="cssBorder" value="Border">
+    <input type="button" id="cssBox" value="Width/height">
+    <p id="cssTarget" class="card">Style me with jQuery.</p>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $("#byId").click(function () {
+        $("#selectorOutput").html("By ID: " + $("#intro").text());
+      });
+      $("#byClass").click(function () {
+        var text = "";
+        $(".note").each(function () {
+          text += $(this).text() + "<br>";
+        });
+        $("#selectorOutput").html("By class: <br>" + text);
+      });
+      $("#byTag").click(function () {
+        var text = "";
+        $("li").each(function () {
+          text += $(this).text() + ", ";
+        });
+        $("#selectorOutput").html("By tag (li): " + text);
+      });
+
+      $("#readText").click(function () {
+        $("#domOutput").html("Text: " + $("#intro").text());
+      });
+      $("#readHtml").click(function () {
+        $("#domOutput").html("HTML: " + $("#fruitList").html().replace(/</g, "&lt;"));
+      });
+      $("#changeText").click(function () {
+        $("#intro").text("This text was changed with jQuery's .text().");
+      });
+      $("#readAttr").click(function () {
+        $("#domOutput").html("href: " + $("#ksuLink").attr("href"));
+      });
+      $("#changeAttr").click(function () {
+        $("#ksuLink").attr("href", "https://ccse.kennesaw.edu/it/");
+        $("#domOutput").html("href changed to: " + $("#ksuLink").attr("href"));
+      });
+
+      // --- Visibility ---
+      $("#hideBtn").click(function () { $("#fruitList").hide(); });
+      $("#showBtn").click(function () { $("#fruitList").show(); });
+      $("#toggleBtn").click(function () { $("#fruitList").toggle(); });
+
+      // --- CSS manipulation ---
+      $("#cssBg").click(function () { $("#cssTarget").css("background-color", "#cfe8ff"); });
+      $("#cssColor").click(function () { $("#cssTarget").css("color", "#0b4f9c"); });
+      $("#cssFont").click(function () { $("#cssTarget").css("font-size", "22px"); });
+      $("#cssBorder").click(function () { $("#cssTarget").css("border", "2px dashed #0b4f9c"); });
+      $("#cssBox").click(function () { $("#cssTarget").css({ width: "300px", height: "80px" }); });
+    });
+  </script>
+  <a class="back" href="index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

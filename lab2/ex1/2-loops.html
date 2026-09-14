@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex1 - Loops (jQuery)</title>
+  <link rel="stylesheet" href="../lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Loops</h1>
+  <p>My jQuery rewrite of the plain-JavaScript <code>for</code> loop example.</p>
+  <h2>for loop</h2>
+  <div id="list" class="card"></div>
+
+  <script>
+    $(document).ready(function () {
+      var level = 5;
+      var items = "<ul>";
+      for (var i = 0; i < level; i++) {
+        items += "<li>List item " + i + "</li>";
+      }
+      items += "</ul>";
+      $("#list").html(items);
+    });
+  </script>
+
+  <div class="notes">
+    <strong>Comparison notes:</strong> the JS version writes each &lt;li&gt; straight to the
+    document with <code>document.write()</code> inside the loop. The jQuery version builds the
+    HTML string in a variable and inserts it once with <code>.html()</code> after the loop
+    finishes, which avoids repeated DOM writes.
+  </div>
+  <a class="back" href="../index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

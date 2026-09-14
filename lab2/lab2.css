@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+a { color: #0b4f9c; }
+header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+nav a { margin-right: 15px; }
+h1, h2, h3 { color: #111; }
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: #fafafa;
+}
+button, input[type="button"] {
+  background: #0b4f9c;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 4px 4px 4px 0;
+}
+button:hover, input[type="button"]:hover { background: #093c78; }
+input[type="text"], input[type="number"] {
+  padding: 6px 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px 0;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+th { background: #eee; }
+.notes {
+  font-size: 14px;
+  color: #444;
+  border-left: 3px solid #999;
+  padding-left: 12px;
+  margin: 16px 0;
+}
+.error { color: #b00020; font-weight: bold; }
+footer {
+  margin-top: 40px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #444444;
+}
+.back { display: inline-block; margin-top: 24px; }

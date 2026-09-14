@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex5 - jQuery Visual Effects</title>
+  <link rel="stylesheet" href="lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Exercise 5: jQuery Visual Effects</h1>
+
+  <input type="button" id="btnHide" value="Hide">
+  <input type="button" id="btnShow" value="Show">
+  <input type="button" id="btnToggle" value="Toggle">
+  <input type="button" id="btnSlide" value="Slide">
+  <input type="button" id="btnFade" value="Fade">
+  <hr>
+
+  <div id="result" class="card" style="width: 400px;">
+    jQuery is a lightweight, "write less, do more", JavaScript library. The purpose of jQuery is
+    to make it much easier to use JavaScript on your website. jQuery takes a lot of common tasks
+    that require many lines of JavaScript code to accomplish, and wraps them into methods that
+    you can call with a single line of code. jQuery also simplifies a lot of the complicated
+    things from JavaScript, like AJAX calls and DOM manipulation.
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $("#btnHide").click(function () { $("#result").hide(400); });
+      $("#btnShow").click(function () { $("#result").show(400); });
+      $("#btnToggle").click(function () { $("#result").toggle(400); });
+      $("#btnSlide").click(function () { $("#result").hide().slideDown(600); });
+      $("#btnFade").click(function () { $("#result").hide().fadeIn(600); });
+    });
+  </script>
+  <a class="back" href="index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

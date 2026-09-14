@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex2 - jQuery ready() and Event Handling</title>
+  <link rel="stylesheet" href="lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#hide1").click(function () {
+        $("#p1").hide();
+      });
+      $("#hide2").click(function () {
+        $("#p2").hide();
+      });
+      $("#showBoth").click(function () {
+        $("#p1, #p2").show();
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Exercise 2: jQuery ready() and Event Handling</h1>
+
+  <p id="p1">This is the first paragraph.</p>
+  <p id="p2">This is the second paragraph.</p>
+
+  <input type="button" id="hide1" value="Hide Paragraph 1">
+  <input type="button" id="hide2" value="Hide Paragraph 2">
+  <input type="button" id="showBoth" value="Show Both">
+
+  <div class="notes">
+    <strong>Part C - $(document).ready() observations:</strong>
+    <p>
+      Temporarily removing <code>$(document).ready()</code> and leaving the script in the
+      <code>&lt;head&gt;</code> broke the buttons: the click handlers ran before
+      <code>#hide1</code>/<code>#hide2</code> existed in the DOM, so <code>$("#hide1")</code>
+      selected nothing and <code>.click()</code> attached to an empty jQuery object.
+    </p>
+    <p>
+      Script placement matters because the browser parses the page top to bottom. A script in
+      the <code>&lt;head&gt;</code> (or anywhere before the elements it targets) runs before
+      those elements exist, unless it waits - which is exactly what
+      <code>$(document).ready()</code> does: it delays the code inside it until the full DOM has
+      been parsed, so selectors reliably find the elements regardless of where the
+      <code>&lt;script&gt;</code> tag sits on the page.
+    </p>
+    <p>This published version is restored to the working Part B behavior described above.</p>
+  </div>
+  <a class="back" href="index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

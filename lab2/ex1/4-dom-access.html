@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex1 - DOM Access (jQuery)</title>
+  <link rel="stylesheet" href="../lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>DOM Access and Manipulation</h1>
+  <p>This example shows how to read parts of an element using jQuery instead of raw DOM methods.</p>
+  <hr>
+
+  <a id="w3clink" href="https://www.w3.org/">
+    W3C Home Page
+  </a>
+
+  <h3>Various methods to access parts of the object above</h3>
+  <div id="display" class="card"></div>
+
+  <script>
+    $(document).ready(function () {
+      $("#display").append("<b>The link's text: </b>" + $("#w3clink").text());
+      $("#display").append("<br><b>The link's HTML: </b>" + $("#w3clink").html());
+      $("#display").append("<br><b>The link's href attribute: </b>" + $("#w3clink").attr("href"));
+
+      $("#w3clink").attr("title", "Set with jQuery .attr()");
+      $("#display").append("<br><b>New title attribute: </b>" + $("#w3clink").attr("title"));
+    });
+  </script>
+
+  <div class="notes">
+    <strong>Comparison notes:</strong> plain JS needs
+    <code>document.getElementById(...).attributes[1].nodeValue</code> to read an attribute by
+    index, which breaks if attribute order changes. jQuery's <code>.attr("href")</code> reads (and
+    <code>.attr("name", value)</code> writes) an attribute by name directly.
+  </div>
+  <a class="back" href="../index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

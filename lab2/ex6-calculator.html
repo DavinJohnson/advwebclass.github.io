@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex6 - jQuery Calculator</title>
+  <link rel="stylesheet" href="lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Exercise 6: jQuery Calculator Application</h1>
+
+  <div class="card">
+    <label>Number 1: <input type="text" id="num1"></label><br><br>
+    <label>Number 2: <input type="text" id="num2"></label><br><br>
+
+    <label>Operation:
+      <select id="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Subtraction (&minus;)</option>
+        <option value="multiply">Multiplication (*)</option>
+        <option value="divide">Division (/)</option>
+      </select>
+    </label><br><br>
+
+    <label>Result color: <input type="text" id="colorName" placeholder="e.g. red, blue, green"></label><br><br>
+
+    <input type="button" id="calcBtn" value="Calculate">
+
+    <div id="output" class="card"></div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $("#calcBtn").click(function () {
+        var raw1 = $("#num1").val().trim();
+        var raw2 = $("#num2").val().trim();
+        var op = $("#operation").val();
+        var color = $("#colorName").val().trim();
+
+        // 1. both fields must have a value
+        if (raw1 === "" || raw2 === "") {
+          showError("Please enter both numbers.");
+          return;
+        }
+
+        var n1 = Number(raw1);
+        var n2 = Number(raw2);
+
+        // 2. both entries must be valid numbers
+        if (isNaN(n1) || isNaN(n2)) {
+          showError("Both entries must be valid numbers.");
+          return;
+        }
+
+        // 3. prevent division by zero
+        if (op === "divide" && n2 === 0) {
+          showError("Cannot divide by zero.");
+          return;
+        }
+
+        var result;
+        switch (op) {
+          case "add": result = n1 + n2; break;
+          case "subtract": result = n1 - n2; break;
+          case "multiply": result = n1 * n2; break;
+          case "divide": result = n1 / n2; break;
+        }
+
+        var displayColor = color === "" ? "#1a1a1a" : color;
+        $("#output")
+          .removeClass("error")
+          .css("color", displayColor)
+          .text("Result: " + result);
+      });
+
+      function showError(message) {
+        $("#output").addClass("error").css("color", "").text(message);
+      }
+    });
+  </script>
+  <a class="back" href="index.html">&larr; Back to Lab 2</a>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ex1 - Calculations (jQuery)</title>
+  <link rel="stylesheet" href="../lab2.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Calculations and Output</h1>
+  <p>My jQuery rewrite of the plain-JavaScript calculation example.</p>
+  <div id="result" class="card"></div>
+
+  <script>
+    $(document).ready(function () {
+      var x = 10;
+      var y = 4.5;
+      var sum = x + y;
+
+      $("#result").html("<p>x = " + x + ", y = " + y + "</p>");
+      $("#result").append("<p>x + y = " + sum + "</p>");
+      $("#result").append("<p>x - y = " + (x - y) + "</p>");
+      $("#result").append("<p>x * y = " + (x * y) + "</p>");
+      $("#result").append("<p>x / y = " + (x / y) + "</p>");
+    });
+  </script>
+
+  <div class="notes">
+    <strong>Comparison notes:</strong> the JS version mixes <code>getElementById().innerHTML</code>
+    with <code>document.write()</code>, which only works while the page is parsing. The jQuery
+    version selects the element once with <code>$("#result")</code> and uses <code>.html()</code>
+    / <code>.append()</code> for every output line, so it keeps working no matter when it runs.
+  </div>
+  <a class="back" href="../index.html">&larr; Back to Lab 2</a>
+</body>
+</html>
