@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 Ex 5 - Weather JSON - Davin Johnson</title>
+  <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+  <header>
+    <h1>Exercise 5: Read and Display JSON from a File</h1>
+    <p>IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../labs.html">Labs</a>
+    <a href="index.html">Lab 3</a>
+  </nav>
+
+  <p>Reads <code>weather.json</code> (OpenWeatherMap-style data) from this same folder using jQuery's <code>$.getJSON</code>.</p>
+
+  <div id="output">Loading weather data&hellip;</div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      $.getJSON("weather.json", function (data) {
+        const tempC = (data.main.temp - 273.15).toFixed(1);
+        const minC = (data.main.temp_min - 273.15).toFixed(1);
+        const maxC = (data.main.temp_max - 273.15).toFixed(1);
+
+        $("#output").empty();
+        $("#output").append("<p><strong>Location:</strong> " + data.name + ", " + data.sys.country + "</p>");
+        $("#output").append("<p><strong>Temperature:</strong> " + tempC + "&deg;C (range " + minC + "&deg;C to " + maxC + "&deg;C)</p>");
+        $("#output").append("<p><strong>Conditions:</strong> " + data.weather[0].main + " &ndash; " + data.weather[0].description + "</p>");
+        $("#output").append("<p><strong>Humidity:</strong> " + data.main.humidity + "%</p>");
+        $("#output").append("<p><strong>Wind:</strong> " + data.wind.speed + " m/s at " + data.wind.deg + "&deg;</p>");
+        $("#output").append("<p><strong>Cloud cover:</strong> " + data.clouds.all + "%</p>");
+        $("#output").append("<p><strong>Pressure:</strong> " + data.main.pressure + " hPa</p>");
+      }).fail(function () {
+        $("#output").text("Could not load weather.json.");
+      });
+    });
+  </script>
+
+  <p class="back"><a href="index.html">&larr; Back to Lab 3</a></p>
+</body>
+</html>

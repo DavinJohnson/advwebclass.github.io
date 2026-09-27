@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 Ex 3 - Read JSON with jQuery - Davin Johnson</title>
+  <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+  <header>
+    <h1>Exercise 3: Read JSON Values with JavaScript and jQuery</h1>
+    <p>IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../labs.html">Labs</a>
+    <a href="index.html">Lab 3</a>
+  </nav>
+
+  <p>Book data is embedded as a JavaScript object below. jQuery reads it and writes the results into this page.</p>
+
+  <div id="output"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    const books = [
+      { title: "Web Development Basics", author: "Maya Lee", price: 29.99 },
+      { title: "Modern JavaScript", author: "Daniel Kim", price: 34.50 },
+      { title: "Understanding JSON", author: "Sofia Patel", price: 24.95 }
+    ];
+
+    $(function () {
+      $("#output").append("<p><strong>First book title:</strong> " + books[0].title + "</p>");
+      $("#output").append("<p><strong>First book author:</strong> " + books[0].author + "</p>");
+      $("#output").append("<p><strong>First book price:</strong> $" + books[0].price + "</p>");
+
+      $("#output").append("<h2>All Books</h2>");
+      const list = $("<ul></ul>");
+      for (let i = 0; i < books.length; i++) {
+        list.append("<li>" + books[i].title + " by " + books[i].author + "</li>");
+      }
+      $("#output").append(list);
+
+      $("#output").append("<p><strong>Total number of books:</strong> " + books.length + "</p>");
+    });
+  </script>
+
+  <p class="back"><a href="index.html">&larr; Back to Lab 3</a></p>
+</body>
+</html>

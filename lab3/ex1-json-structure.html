@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 Ex 1 - JSON Structure - Davin Johnson</title>
+  <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+  <header>
+    <h1>Exercise 1: Explore JSON Structure</h1>
+    <p>IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../labs.html">Labs</a>
+    <a href="index.html">Lab 3</a>
+  </nav>
+
+  <p>Source: <a href="https://openlibrary.org/books/OL7353617M.json">Open Library Book JSON</a> (Fantastic Mr. Fox)</p>
+
+  <h2>Main structure</h2>
+  <p>The whole file is one JSON <strong>object</strong> describing a single book edition. There is no top-level array &ndash; plain fields, arrays, and nested objects are all mixed together as properties of that one object.</p>
+
+  <h2>Main keys</h2>
+  <p><code>title</code>, <code>authors</code>, <code>publishers</code>, <code>isbn_10</code>, <code>isbn_13</code>, <code>identifiers</code>, <code>publish_date</code>, <code>number_of_pages</code>, <code>languages</code>, <code>source_records</code>, <code>type</code>, <code>first_sentence</code>, <code>created</code>, <code>last_modified</code></p>
+
+  <h2>Simple values (text or number)</h2>
+  <ul>
+    <li><code>"title": "Fantastic Mr. Fox"</code> &ndash; string</li>
+    <li><code>"number_of_pages": 96</code> &ndash; number</li>
+    <li><code>"publish_date": "October 1, 1988"</code> &ndash; string</li>
+  </ul>
+
+  <h2>Values that are collections (arrays)</h2>
+  <ul>
+    <li><code>"publishers": ["Puffin"]</code></li>
+    <li><code>"isbn_13": ["9780140328721"]</code></li>
+    <li><code>"contributions": ["Tony Ross (Illustrator)"]</code></li>
+  </ul>
+
+  <h2>Values with structured data inside (objects)</h2>
+  <ul>
+    <li><code>"type": { "key": "/type/edition" }</code></li>
+    <li><code>"first_sentence": { "type": "/type/text", "value": "Down in the valley there were three farms." }</code></li>
+    <li><code>"identifiers": { "goodreads": ["1507552"], "librarything": ["6446"] }</code> &ndash; an object whose own values are arrays</li>
+  </ul>
+
+  <h2>Nested objects / arrays</h2>
+  <p><code>authors</code> is an array that contains an object &ndash; two levels of nesting in one field. <code>identifiers</code> nests the other direction: an object containing arrays.</p>
+
+  <h2>Overall organization</h2>
+  <p>It reads like a typical REST API record: a flat set of descriptive fields (title, page count, dates) sitting next to arrays for anything that can repeat (publishers, ISBNs, source records) and small objects for anything that needs its own type/value pair or its own sub-keys (identifiers).</p>
+
+  <h2>Examples</h2>
+
+  <h3>Name/value pair</h3>
+  <pre>"title": "Fantastic Mr. Fox"</pre>
+
+  <h3>Object</h3>
+  <pre>"identifiers": {
+  "goodreads": ["1507552"],
+  "librarything": ["6446"]
+}</pre>
+
+  <h3>Array</h3>
+  <pre>"isbn_13": ["9780140328721"]</pre>
+
+  <h3>Nested structure</h3>
+  <pre>"authors": [
+  { "key": "/authors/OL34184A" }
+]</pre>
+
+  <p class="back"><a href="index.html">&larr; Back to Lab 3</a></p>
+</body>
+</html>

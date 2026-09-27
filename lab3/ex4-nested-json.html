@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 Ex 4 - Nested JSON - Davin Johnson</title>
+  <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+  <header>
+    <h1>Exercise 4: Work with Nested JSON Data</h1>
+    <p>IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../labs.html">Labs</a>
+    <a href="index.html">Lab 3</a>
+  </nav>
+
+  <p>Student data is embedded below as a JavaScript object with a nested <code>courses</code> array.</p>
+
+  <div id="output"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    const student = {
+      name: "Davin Johnson",
+      major: "Information Technology",
+      email: "djohn770@students.kennesaw.edu",
+      courses: [
+        { code: "IT 4403", title: "Advanced Web and Mobile Applications", credits: 3 },
+        { code: "IT 3203", title: "Database Design and Development", credits: 3 },
+        { code: "IT 2000", title: "Introduction to Information Technology", credits: 4 }
+      ]
+    };
+
+    $(function () {
+      $("#output").append("<p><strong>Name:</strong> " + student.name + "</p>");
+      $("#output").append("<p><strong>Major:</strong> " + student.major + "</p>");
+      $("#output").append("<p><strong>Email:</strong> " + student.email + "</p>");
+
+      $("#output").append("<h2>Courses</h2>");
+      const list = $("<ul></ul>");
+      for (let i = 0; i < student.courses.length; i++) {
+        const c = student.courses[i];
+        list.append("<li>" + c.code + " &ndash; " + c.title + " (" + c.credits + " credit hours)</li>");
+      }
+      $("#output").append(list);
+    });
+  </script>
+
+  <p class="back"><a href="index.html">&larr; Back to Lab 3</a></p>
+</body>
+</html>

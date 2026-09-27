@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 Ex 6 - Movie Information Page - Davin Johnson</title>
+  <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+  <header>
+    <h1>Exercise 6: Movie Information Page</h1>
+    <p>IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../labs.html">Labs</a>
+    <a href="index.html">Lab 3</a>
+  </nav>
+
+  <p>Reads <code>movie.json</code> from this same folder using jQuery's <code>$.getJSON</code>.</p>
+
+  <div id="output">Loading movie data&hellip;</div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      $.getJSON("movie.json", function (data) {
+        $("#output").empty();
+        $("#output").append("<h2>" + data.title + " (" + data.year + ")</h2>");
+        $("#output").append("<p><strong>Rated:</strong> " + data.mpaa_rating + " &nbsp;|&nbsp; <strong>Runtime:</strong> " + data.runtime + " min &nbsp;|&nbsp; <strong>Studio:</strong> " + data.studio + "</p>");
+        $("#output").append("<p><strong>In theaters:</strong> " + data.release_dates.theater + " &nbsp;|&nbsp; <strong>On DVD:</strong> " + data.release_dates.dvd + "</p>");
+
+        $("#output").append("<p><strong>Overview:</strong> " + data.synopsis + "</p>");
+
+        $("#output").append("<p><strong>Genres:</strong></p>");
+        const genreList = $("<ul></ul>");
+        for (let i = 0; i < data.genres.length; i++) {
+          genreList.append("<li>" + data.genres[i] + "</li>");
+        }
+        $("#output").append(genreList);
+
+        $("#output").append("<h3>Ratings</h3>");
+        $("#output").append("<p>Critics: " + data.ratings.critics_rating + " (" + data.ratings.critics_score + "%)</p>");
+        $("#output").append("<p>Audience: " + data.ratings.audience_rating + " (" + data.ratings.audience_score + "%)</p>");
+
+        $("#output").append("<h3>Director" + (data.abridged_directors.length > 1 ? "s" : "") + "</h3>");
+        const directorList = $("<ul></ul>");
+        for (let i = 0; i < data.abridged_directors.length; i++) {
+          directorList.append("<li>" + data.abridged_directors[i].name + "</li>");
+        }
+        $("#output").append(directorList);
+
+        $("#output").append("<h3>Cast</h3>");
+        const castList = $("<ul></ul>");
+        for (let i = 0; i < data.abridged_cast.length; i++) {
+          const actor = data.abridged_cast[i];
+          castList.append("<li>" + actor.name + " as " + actor.characters.join(", ") + "</li>");
+        }
+        $("#output").append(castList);
+      }).fail(function () {
+        $("#output").text("Could not load movie.json.");
+      });
+    });
+  </script>
+
+  <p class="back"><a href="index.html">&larr; Back to Lab 3</a></p>
+</body>
+</html>
