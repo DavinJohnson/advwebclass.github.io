@@ -37,7 +37,6 @@
         var op = $("#operation").val();
         var color = $("#colorName").val().trim();
 
-        // 1. both fields must have a value
         if (raw1 === "" || raw2 === "") {
           showError("Please enter both numbers.");
           return;
@@ -46,13 +45,11 @@
         var n1 = Number(raw1);
         var n2 = Number(raw2);
 
-        // 2. both entries must be valid numbers
         if (isNaN(n1) || isNaN(n2)) {
           showError("Both entries must be valid numbers.");
           return;
         }
 
-        // 3. prevent division by zero
         if (op === "divide" && n2 === 0) {
           showError("Cannot divide by zero.");
           return;

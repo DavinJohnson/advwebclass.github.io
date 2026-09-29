@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search Results - Milestone 1 - Davin Johnson</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #ffffff;
+    }
+    a { color: #0b4f9c; }
+    header {
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    header p { margin: 4px 0; color: #444; }
+    nav a { margin-right: 15px; }
+
+    .summary {
+      background: #f0f3f7;
+      border: 1px solid #d5dde8;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 20px 0;
+    }
+    .summary p { margin: 4px 0; }
+
+    .results { list-style: none; padding: 0; margin: 0; }
+    .result {
+      display: flex;
+      gap: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 16px 0;
+      background: #fafafa;
+    }
+    .result .cover { flex: 0 0 110px; }
+    .result .cover img {
+      width: 110px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      display: block;
+    }
+    .no-cover {
+      width: 110px;
+      height: 165px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 13px;
+      border: 1px dashed #999;
+      border-radius: 4px;
+      color: #666;
+    }
+    .result .info { flex: 1; min-width: 0; }
+    .result h2 { margin: 0; font-size: 21px; }
+    .result .num { color: #666; font-weight: normal; }
+    .result .subtitle { margin: 2px 0 6px; color: #333; font-style: italic; }
+    .result .authors { margin: 0 0 10px; }
+
+    dl.meta {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 4px 12px;
+      margin: 0 0 10px;
+    }
+    dl.meta dt { font-weight: bold; color: #333; }
+    dl.meta dd { margin: 0; }
+    .missing { color: #888; font-style: italic; }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 1px 8px;
+      border-radius: 10px;
+      margin-right: 4px;
+      border: 1px solid transparent;
+    }
+    .badge.yes { background: #e3f5e8; color: #1c6b34; border-color: #b6e0c1; }
+    .badge.no  { background: #eee; color: #555; border-color: #ddd; }
+    .links a { margin-right: 14px; }
+    .error {
+      color: #9b1c1c;
+      background: #fdecec;
+      border: 1px solid #f5b5b5;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    footer {
+      margin-top: 40px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      font-size: 14px;
+      color: #444444;
+    }
+
+    @media (max-width: 640px) {
+      .result { flex-direction: column; }
+      dl.meta { grid-template-columns: 1fr; }
+      dl.meta dd { margin-bottom: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Milestone 1: Book Search Results</h1>
+    <p>Data source: <code>openlibrary-search.json</code> (saved Open Library search results)</p>
+    <p>Davin Johnson &middot; IT 4403 - Advanced Web and Mobile Applications</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../../project.html">Project</a>
+    <a href="index.html">Milestone 1</a>
+    <a href="book.html">Single Book Page</a>
+  </nav>
+
+  <main>
+    <section id="summary" class="summary" aria-live="polite">
+      <p>Loading search results&hellip;</p>
+    </section>
+    <ol id="results" class="results"></ol>
+  </main>
+
+  <footer>
+    <p>Book data and cover images from <a href="https://openlibrary.org/">Open Library</a>.</p>
+    <p><a href="index.html">&larr; Back to Milestone 1</a></p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    var OL_BASE = "https://openlibrary.org";
+    var COVER_BASE = "https://covers.openlibrary.org/b/id/";
+    var LANGUAGE_NAMES = { eng: "English", spa: "Spanish", fre: "French", ger: "German" };
+
+    function esc(value) {
+      return $("<div>").text(value).html();
+    }
+
+    function orNA(value) {
+      if (value === undefined || value === null || value === "") {
+        return '<span class="missing">Not available</span>';
+      }
+      return value;
+    }
+
+    function field(label, value) {
+      return "<dt>" + label + "</dt><dd>" + orNA(value) + "</dd>";
+    }
+
+    function ebookText(code) {
+      var map = {
+        borrowable: "Borrowable from Open Library",
+        no_ebook: "No ebook available",
+        public: "Free public ebook",
+        printdisabled: "Available to print-disabled readers"
+      };
+      return code ? esc(map[code] || code) : null;
+    }
+
+    function renderDoc(doc, index) {
+      var title = doc.title || "Untitled";
+
+      var cover = doc.cover_i
+        ? '<img src="' + COVER_BASE + doc.cover_i + '-M.jpg" alt="Cover of ' + esc(title) + '" loading="lazy">'
+        : '<div class="no-cover">No cover image available</div>';
+
+      var authors = [];
+      $.each(doc.author_name || [], function (i, name) {
+        var key = doc.author_key && doc.author_key[i];
+        authors.push(key
+          ? '<a href="' + OL_BASE + "/authors/" + encodeURIComponent(key) + '">' + esc(name) + "</a>"
+          : esc(name));
+      });
+
+      var languages = $.map(doc.language || [], function (code) {
+        return esc(LANGUAGE_NAMES[code] || code);
+      });
+
+      var publishers = $.map(doc.publisher || [], esc);
+      var isbns = $.map((doc.isbn || []).slice(0, 3), esc);
+
+      var iaLinks = $.map(doc.ia || [], function (id) {
+        return '<a href="https://archive.org/details/' + encodeURIComponent(id) + '">' + esc(id) + "</a>";
+      });
+
+      var badges =
+        '<span class="badge ' + (doc.has_fulltext ? "yes" : "no") + '">' +
+          (doc.has_fulltext ? "Full text available" : "No full text") + "</span>" +
+        '<span class="badge ' + (doc.public_scan_b ? "yes" : "no") + '">' +
+          (doc.public_scan_b ? "Public scan" : "Not a public scan") + "</span>";
+
+      var links = [];
+      if (doc.key) {
+        links.push('<a href="' + OL_BASE + doc.key + '">View &ldquo;' + esc(title) + '&rdquo; on Open Library</a>');
+      }
+      if (doc.cover_edition_key) {
+        links.push('<a href="' + OL_BASE + "/books/" + encodeURIComponent(doc.cover_edition_key) + '">View featured edition</a>');
+      }
+
+      return (
+        '<li class="result">' +
+          '<div class="cover">' + cover + "</div>" +
+          '<div class="info">' +
+            '<h2><span class="num">' + (index + 1) + ".</span> " + esc(title) + "</h2>" +
+            (doc.subtitle ? '<p class="subtitle">' + esc(doc.subtitle) + "</p>" : "") +
+            '<p class="authors">by ' + (authors.length ? authors.join(", ") : '<span class="missing">Author not available</span>') + "</p>" +
+            '<dl class="meta">' +
+              field("First published", doc.first_publish_year) +
+              field("Edition count", doc.edition_count !== undefined ? doc.edition_count + (doc.edition_count === 1 ? " edition" : " editions") : null) +
+              field("Publisher", publishers.join(", ")) +
+              field("ISBN", isbns.join(", ")) +
+              field("Language", languages.join(", ")) +
+              field("Ebook access", ebookText(doc.ebook_access)) +
+              field("Internet Archive", iaLinks.join(", ")) +
+              field("Work ID", doc.key ? esc(doc.key.split("/").pop()) : null) +
+            "</dl>" +
+            "<p>" + badges + "</p>" +
+            '<p class="links">' + links.join("") + "</p>" +
+          "</div>" +
+        "</li>"
+      );
+    }
+
+    $(document).ready(function () {
+      $.getJSON("openlibrary-search.json")
+        .done(function (data) {
+          var docs = data.docs || [];
+
+          $("#summary").html(
+            "<p><strong>Search phrase:</strong> &ldquo;" + esc(data.q || "Not available") + "&rdquo;</p>" +
+            "<p><strong>Total matches on Open Library:</strong> " + orNA(data.numFound) + "</p>" +
+            "<p><strong>Results shown on this page:</strong> " + docs.length + "</p>" +
+            (data.documentation_url
+              ? '<p><a href="' + esc(data.documentation_url) + '">Open Library Search API documentation</a></p>'
+              : "")
+          );
+
+          if (docs.length === 0) {
+            $("#results").html('<li class="missing">No books were found in the search results.</li>');
+            return;
+          }
+
+          var html = "";
+          for (var i = 0; i < docs.length; i++) {
+            html += renderDoc(docs[i], i);
+          }
+          $("#results").html(html);
+        })
+        .fail(function () {
+          $("#summary").html('<p class="error">Sorry, the search results could not be loaded. ' +
+            "If you opened this file directly from your computer, view it through the live website instead.</p>");
+        });
+    });
+  </script>
+</body>
+</html>
