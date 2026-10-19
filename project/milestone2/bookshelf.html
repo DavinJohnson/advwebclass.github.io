@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Bookshelf - Book Finder</title>
+  <link rel="stylesheet" href="milestone2.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">Book Finder</a>
+      <nav aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="bookshelf.html" aria-current="page">My Bookshelf</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">My Bookshelf</h1>
+    <p class="lead">A few books I like, loaded live from Open Library.</p>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <ul id="shelf" class="results"></ul>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      IT 4403 Milestone 2 &middot; Book data and covers from
+      <a href="https://openlibrary.org">Open Library</a> &middot;
+      <a href="../../index.html">Course website</a>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/bookshelf.js"></script>
+</body>
+</html>
