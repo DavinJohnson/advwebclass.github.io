@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book Finder (Single-Page App) - Milestone 3</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="milestone3.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="brand">Book Finder</h1>
+      <nav aria-label="Sections on this page">
+        <a href="#search-section">Search</a>
+        <a href="#results-section">Results</a>
+        <a href="#details-section">Details</a>
+        <a href="#collection-section">Collection</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <noscript>
+      <p class="status error">Book Finder needs JavaScript to load books from Open Library. Please turn JavaScript on and reload the page.</p>
+    </noscript>
+
+    <section id="search-section" class="panel" aria-labelledby="search-heading">
+      <h2 id="search-heading">Search books</h2>
+      <form id="search-form" novalidate>
+        <label for="search-input">Title or keywords</label>
+        <div class="search-row">
+          <input type="search" id="search-input" placeholder="e.g. data analysis, Roald Dahl, dragons"
+                 autocomplete="off" aria-describedby="search-message">
+          <button type="submit" id="search-button" class="primary">Search</button>
+        </div>
+        <p id="search-message" class="field-message" role="alert"></p>
+      </form>
+    </section>
+
+    <div class="layout">
+
+      <section id="results-section" class="panel" aria-labelledby="results-heading" aria-busy="false">
+        <h2 id="results-heading">Search results</h2>
+        <p id="results-status" class="status" role="status">Enter a title or keywords above and press Search.</p>
+        <ul id="results-list" class="book-list"></ul>
+        <nav id="pager" class="pager" aria-label="Search result pages" hidden></nav>
+      </section>
+
+      <section id="details-section" class="panel details-panel" aria-labelledby="details-heading">
+        <h2 id="details-heading">Book details</h2>
+        <div id="details-content" aria-live="polite"></div>
+      </section>
+
+      <section id="collection-section" class="panel" aria-labelledby="collection-heading" aria-busy="false">
+        <h2 id="collection-heading">Featured collection: Science Fiction</h2>
+        <p id="collection-status" class="status" role="status"></p>
+        <ul id="collection-list" class="book-list"></ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      IT 4403 Milestone 3 &middot; Book data and covers from
+      <a href="https://openlibrary.org">Open Library</a> &middot;
+      <a href="https://davinjohnson.github.io/advwebclass.github.io/">Course website</a>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/details.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/collection.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
