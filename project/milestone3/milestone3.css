@@ -220,7 +220,7 @@ button, .button {
   border-radius: 6px;
   font-weight: 600;
 }
-.pager button:hover:not(:disabled) { background: var(--accent-tint); }
+.pager button:hover:not(:disabled):not(.current) { background: var(--accent-tint); }
 .pager button.current { background: var(--accent); border-color: var(--accent); color: #ffffff; }
 .pager button:disabled { color: #8a95a1; border-color: var(--line); cursor: default; }
 
